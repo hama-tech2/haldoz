@@ -3,3 +3,36 @@
 @media(max-width:359px){.owner-shell{padding-inline:14px}.quiet-link{gap:3px;font-size:.6875rem}.quiet-link svg{display:none}.hero-copy h1{font-size:1.875rem}.form-section{padding:16px}.hero-actions{gap:8px}.hero-actions .primary-button{padding-inline:16px}}
 
 .setup-form textarea{font-family:inherit;line-height:inherit}.setup-form textarea:focus-visible{outline:3px solid var(--action);outline-offset:4px}
+
+/* Form/profile slice: approved landing and Google entry layout stay unchanged. */
+.setup-grid>*{min-width:0}
+.setup-form label:not(.public-consent),.setup-form input:not([type=checkbox]),.setup-form select,.setup-form textarea,.setup-form .primary-button,.setup-form .secondary-button{font-size:1rem}
+.setup-form .form-section h2{font-size:1.25rem;margin-bottom:16px}
+.setup-form .field-help,.setup-form .optional-label,.setup-form .field-error,.setup-form .field-count,.setup-form .validation-summary{font-size:.875rem}
+.setup-form .public-consent{font-size:.9375rem;gap:12px}
+.setup-form .public-consent input{margin-top:4px}
+.setup-form .form-section{border-radius:18px;padding:24px;margin-bottom:20px}
+.setup-form input::placeholder{font-family:inherit;color:var(--muted);opacity:1}
+.setup-form input[type=tel]::placeholder{direction:rtl;text-align:right}
+.setup-form .setup-actions>.primary-button{width:100%;min-height:52px}
+.setup-appearance summary{cursor:pointer;min-height:48px;align-content:center;font-weight:500}
+.setup-appearance[open] summary{margin-bottom:16px}
+.setup-preview>h2{font-size:1rem}
+.public-profile .profile-cover{height:104px;background:linear-gradient(110deg,var(--profile-tint),#f8fbff)}
+.public-profile .profile-avatar{width:80px;height:80px;border-radius:24px;font-size:2rem}
+.public-profile .profile-handle{font-size:.875rem;margin-top:12px}
+.public-profile .profile-body h1{font-size:1.75rem;font-weight:600;line-height:1.6}
+.public-profile .profile-bio{font-size:1rem;line-height:1.9;margin-block:10px 16px}
+.public-profile .profile-city{font-size:.9375rem}
+.public-profile .profile-contacts{gap:12px}
+.public-profile .profile-contacts a{font-size:1rem;flex:1;min-width:0;min-height:50px}
+.public-profile .contact-preview{font-size:.875rem;overflow-wrap:anywhere}
+.public-profile .profile-opportunities{padding-block:24px}
+.public-profile .profile-opportunities h2{font-size:1.25rem}
+.public-profile .profile-empty{align-items:center;justify-content:center;gap:16px;padding:28px 16px;border:1px dashed #d3dfef;background:#f8fbff;min-height:136px}
+.public-profile .profile-empty svg{width:28px;height:28px;color:var(--action)}
+.public-profile .profile-empty h3{font-size:1rem;font-weight:500;margin:0 0 4px}
+.public-profile .profile-empty p,.public-profile .preview-label{font-size:.875rem}
+.public-profile .profile-footer{font-size:.8125rem;padding-bottom:12px}
+@media(max-width:760px){.setup-form .form-section{padding:20px}.setup-heading{margin-block:20px 24px}.public-profile .profile-body h1{font-size:1.5rem}.public-profile .profile-cover{height:88px}.public-profile .profile-body{padding-bottom:20px}.public-profile .profile-footer{padding-inline:20px}}
+@media(max-width:359px){.setup-form .form-section{padding:16px}.public-profile .profile-contacts{flex-wrap:wrap;gap:8px}.public-profile .profile-contacts a{padding-inline:10px}.public-profile .profile-empty{gap:12px;padding-inline:12px}}

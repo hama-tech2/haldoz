@@ -1,6 +1,13 @@
 # Haldoz continuation handoff
 Updated 27 October 2026 (Asia/Baghdad). Read this before historical reports.
 
+## Latest continuation — form/profile checkpoint
+Preservation checkpoint 427ed81ab49e67ff2cde9d12c7943d375e9b32e8 was pushed normally to codex/phone-and-release-prep and verified with ls-remote plus GitHub file reads (actual application and this handoff). It includes ef98e6b. The subsequent commit containing this section adds the form/profile slice; resolve its pushed hash below.
+Read docs/FORM-PROFILE-SLICE-2026-10-27.md for exact changes and limitations. Fresh checks: 68 tests, lint/types, Next production build, vinext build, Next and local Workers HTTP/native-action denial checks passed. Anonymous HTTP reads of the real saved page succeeded twice with the correct contact fingerprint and no owner controls. New Page SSR phone is empty and consent unchecked. Original migration hash is unchanged; no hosted write in this slice.
+Visual and signed-in acceptance are still pending: browser connector has no enabled browsers; native Chrome disappeared after its Guest window opened. Do not invent screenshots or claim browser editing/draft saving passed. Owner was asked to open http://127.0.0.1:3100/owner in normal Chrome and inspect Edit Profile. Existing production server is running with process-only PAGES_READY=true. Confirm current process/port before restarting; never kill unrelated Node processes. Saved private readiness configuration was not overwritten.
+Cloudflare connector identity/account and workers.dev subdomain were verified; no Haldoz Worker exists. Wrangler 4.152.0 is installed but unauthenticated. Preview rollout/Git automation remain pending real owner acceptance, fixture isolation, appropriate credentials and exact callback configuration. Do not use temporary anonymous deployment accounts. See updated CLOUDFLARE-RELEASE.md. No production promotion authorized.
+Vazirmatn retained; both it and a private official Noto Sans Arabic comparison pass glyph/shaping checks. Real visual comparison still pending; no font substitution or new imagery.
+
 ## Exact source and Git
 - Working source: C:/Users/shara/Documents/Codex/2026-10-25/hey-codex-i-formatted-windows-but/work/haldoz-audit/haldoz
 - Repository: https://github.com/hama-tech2/haldoz

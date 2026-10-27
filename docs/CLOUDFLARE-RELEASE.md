@@ -1,6 +1,24 @@
 # Haldoz Workers release preparation
 Status: local candidate tested; no deployment or Git connection configured.
 
+## Verified continuation — 27 October 2026
+The owner now authorizes a tested development preview and automatic preview updates from the Haldoz development branch. Production/main promotion still needs separate approval. This supersedes the older instruction to disable all development branch deployments.
+Cloudflare connector account: 11de8ff2142cb705ddccb688df41621a. Existing workers.dev subdomain: mahmadmajed149. Read-only inventory returned no Worker whose name contains haldoz; unrelated Workers were not inspected or changed. No preview URL exists yet.
+Installed Wrangler 4.152.0 reports unauthenticated. Connector authentication does not authenticate the local CLI. Use the owner's Cloudflare account, never the CLI's suggested temporary anonymous deployment account. Do not request tokens in chat.
+The new UI passed a fresh vinext build and all four local Worker HTTP/native-action rejection scripts. Next remains intact. Cloudflare's current Next.js guidance still recommends vinext and identifies it as beta; passing local checks does not verify live edge OAuth, cookie handling or free-plan CPU limits.
+No deployment, Git integration, hosted Auth URL edit, secret creation or paid plan change has occurred.
+
+### Concrete preview sequence after owner acceptance
+1. Finish observed local owner edit/save/reload and draft create/reopen; retain the existing saved page. Verify an independently authenticated non-owner cannot mutate its records. Never substitute synthetic RLS for hosted JWT proof.
+2. Isolate labeled development fixture routes/data from hosted preview/public routes. Complete real public job reading/publication in a separately reviewed slice before production; no additional SQL is approved by this document.
+3. Add a separate guarded preview deploy command targeting ONLY haldoz-preview in the account above. A prospective URL is https://haldoz-preview.mahmadmajed149.workers.dev — this is a planned address, NOT a live deployment. The preview guard must reject main/unknown branches, dirty trees, wrong account/backend/target, privileged keys and untested artifacts. Keep production target haldoz and its release guard separate.
+4. Authenticate Wrangler privately through the normal browser flow, or configure the official Workers Builds/GitHub connection for ONLY hama-tech2/haldoz. Do not create/broaden credentials without a concrete permission review. Store credentials outside Git; no service-role/database password is required for the application.
+5. Configure build and runtime public Supabase URL/publishable key and exact preview origin. Both readiness flags must reflect verified real integration. Preserve local/shared OAuth URLs; add only the exact preview /auth/callback after reviewing the current allowlist. No wildcard redirect or authentication bypass.
+6. Run complete checks before the first preview deployment. For automatic updates, build/check the codex/phone-and-release-prep branch and deploy only the isolated preview target. Keep production promotion manual/approved from tested main. Never enable deploy-on-push for untrusted forks or expose deployment secrets to pull-request code.
+7. Record the actual Worker version and URL, then test Google login, page edit/reload, anonymous profile reads, draft persistence, non-owner denial and runtime CPU on that URL. Production is not approved by a successful upload.
+
+This sequence is concrete preparation, not a configured or tested deployment pipeline. Browser acceptance and deployment authentication remain external blockers.
+
 ## Adapter decision
 Cloudflare currently recommends vinext for Next.js, but it is beta and not guaranteed to reproduce every Next.js behavior:
 https://developers.cloudflare.com/workers/framework-guides/web-apps/nextjs/
@@ -26,10 +44,10 @@ Local builds and workerd checks prove compatibility, not production CPU fit or f
 No paid plan is selected. There are no R2, D1, KV, Response Store, Cloudflare Images or other paid-resource bindings. CDN/data/image optimization services were explicitly left unconfigured.
 If free limits prove insufficient, stop for owner approval of a different plan or hosting target.
 
-## Git-connected automatic deployment — prepare now, configure after approval
+## Production Git-connected deployment — still gated
 Official setup: https://developers.cloudflare.com/workers/ci-cd/builds/
 1. After public-source review/first-push approval, connect ONLY hama-tech2/haldoz to a new Haldoz Worker.
-2. Production branch: main. Disable non-production branch deployments. Development branches run GitHub checks only and cannot replace production.
+2. Production branch: main. Development branches must use the isolated preview target described above and cannot replace production.
 3. Require the Haldoz checks workflow before merging to main. Configure branch protection separately with owner approval; it has not been changed.
 4. Build command: npm run check:cloudflare. Deploy command: npm run deploy:production. Use Node 24 (tested 24.22.1) and the committed lockfile.
 5. Only after release approval set HALDOZ_RELEASE_ENABLED=true in the build environment. The guard otherwise exits BEFORE Wrangler deployment. It also refuses non-main, dirty trees, missing Worker artifacts, wrong backend, privileged keys, non-HTTPS canonical origins and unverified auth/pages gates.

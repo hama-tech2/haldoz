@@ -1,7 +1,24 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { validatePage, validHandle, normalizePhone } from "../src/lib/page-validation.ts";
+import { validatePage, validHandle, normalizePhone, initialPageForm, blankPage } from "../src/lib/page-validation.ts";
 const valid = { handle: "aso-office", display_name: "نووسینگەی ئاسۆ", bio: "", city: "هەولێر", public_phone: "+9647501234567", public_whatsapp: "", brand_tone: "blue", confirm_public: true };
+test("new-page form never inherits contact data; editing preserves only supplied saved contact", () => {
+  const saved = { ...blankPage, public_phone: "+9647912345678", public_whatsapp: "+9647912345678" };
+  assert.equal(initialPageForm(saved, "create").public_phone, "");
+  assert.equal(initialPageForm(saved, "create").public_whatsapp, "");
+  assert.equal(initialPageForm(saved, "edit").public_phone, saved.public_phone);
+  assert.equal(saved.public_phone, "+9647912345678");
+});
+test("natural multilingual names remain separate from ASCII handles; control overrides are rejected", () => {
+  for (const display_name of ["نووسینگەی ڕووناک", "مكتب الأمل", "Dara & Sons", "هەڵدۆز - Haldoz", "نە\u200cورۆز"]) {
+    const result = validatePage({ ...valid, display_name });
+    assert.deepEqual(result.errors, {});
+    assert.equal(result.page.display_name, display_name);
+    assert.equal(result.page.handle, valid.handle);
+  }
+  for (const display_name of ["A\u0000B", "name\u202Eevil", "office\nname", "a".repeat(81)]) assert.ok(validatePage({ ...valid, display_name }).errors.display_name);
+  assert.equal(validatePage({ ...valid, display_name: "😀".repeat(80) }).errors.display_name, undefined);
+});
 test("page validation rejects reserved/path/Unicode/confusable handles", () => {
   for (const handle of ["admin","auth","a","a-","/other","a?b","ئاسۆ","ＡＢＣ","with space"]) assert.equal(validHandle(handle), false, handle);
   assert.equal(validHandle("aso-office"), true);

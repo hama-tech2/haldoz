@@ -6,6 +6,10 @@ export type PublicPage = { id?: string; handle: string; display_name: string; bi
 export type PageInput = PublicPage & { confirm_public: boolean };
 export type PageErrors = Partial<Record<keyof PageInput, string>>;
 export const blankPage: PublicPage = { handle: "", display_name: "", bio: "", city: "", public_phone: "", public_whatsapp: "", brand_tone: "blue" };
+// Creating a page must never inherit a contact from account data or preview props.
+export function initialPageForm(page: PublicPage, mode: "create" | "edit"): PublicPage {
+  return { ...page, public_phone: mode === "edit" ? page.public_phone || page.public_whatsapp : "", public_whatsapp: mode === "edit" ? page.public_whatsapp : "" };
+}
 export function validHandle(value: string) { return /^[a-z0-9][a-z0-9-]{1,30}[a-z0-9]$/.test(value) && !reservedHandles.has(value); }
 export function normalizePhone(value: string) {
   const input = value.normalize("NFKC")
@@ -26,7 +30,9 @@ export function validatePage(raw: Record<string, unknown>): { page: PublicPage; 
   const page: PublicPage = { handle: text("handle").toLowerCase(), display_name: text("display_name"), bio: text("bio"), city: text("city"), public_phone: phone, public_whatsapp: whatsappEnabled ? phone : "", brand_tone: text("brand_tone") as PublicPage["brand_tone"] };
   const errors: PageErrors = {};
   if (!validHandle(page.handle)) errors.handle = "٣–٣٢ پیتی لاتینی بچووک، ژمارە یان هێڵ؛ ناوە پارێزراوەکان بەردەست نین.";
-  if (page.display_name.length < 2 || page.display_name.length > 80) errors.display_name = "ناوی پەڕە دەبێت ٢–٨٠ پیت بێت.";
+  if (Array.from(page.display_name).length < 2 || Array.from(page.display_name).length > 80) errors.display_name = "ناوی پەڕە دەبێت ٢–٨٠ پیت بێت.";
+  // Preserve natural scripts, spaces and joining marks; reject invisible control/override characters.
+  if (/[\u0000-\u001f\u007f-\u009f\u202a-\u202e\u2066-\u2069]/u.test(page.display_name)) errors.display_name = "تکایە ناوەکە دووبارە بنووسە؛ پیتی نادیاری تێدایە.";
   if (page.bio.length > 500) errors.bio = "کورتەکە نابێت لە ٥٠٠ پیت زیاتر بێت.";
   if (!(cities as readonly string[]).includes(page.city)) errors.city = "شارێک هەڵبژێرە.";
   if (!phone) errors.public_phone = "ژمارەیەکی دروستی مۆبایل بنووسە.";

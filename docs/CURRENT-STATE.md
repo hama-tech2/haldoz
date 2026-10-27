@@ -1,4 +1,10 @@
-# Latest authoritative checkpoint — 27 October 2026
+# Latest form/profile continuation — 27 October 2026
+
+Preservation checkpoint 427ed81 is confirmed on codex/phone-and-release-prep. The subsequent form/profile checkpoint improves empty new-page phone initialization, submit-only validation, natural names/URL conflict feedback, Add Job priority and shared profile/form readability. Read FORM-PROFILE-SLICE-2026-10-27.md and AI-HANDOFF.md before historical entries below.
+
+Fresh 68 tests, lint/types, Next build, vinext build and local Next/Workers HTTP authorization checks passed. The real saved public profile was read anonymously twice and matched the hosted public contact fingerprint. One saved page, zero jobs. No hosted modifications. Signed-in edit/draft acceptance, current screenshots and hosted preview are pending; the browser connector was unavailable and the native Chrome fallback window disappeared. Owner's next action: open http://127.0.0.1:3100/owner in normal Chrome and inspect Edit Profile. Keep the local server running for this test.
+
+## Historical preservation checkpoint — 27 October 2026
 
 Continuation update: localhost access is resolved by running the production preview outside the restricted command environment. Four HTTP/security scripts passed, and signed-out create/edit denial was retested with PAGES_READY enabled only in the test process. Server logs recorded verified Google exchanges to setup and My Page; a fresh database read confirms one real saved page/ownership record and zero jobs. Full edit/non-owner JWT acceptance and deployed preview remain unverified. The preservation checkpoint removes the numeric phone placeholder/examples, adds docs/AI-HANDOFF.md and passes 64 tests, source/privacy scans, lint, types and Next production build. This supersedes the older timeout/empty-table status below. The local test server was stopped for the build; restart explicitly for real testing.
 
