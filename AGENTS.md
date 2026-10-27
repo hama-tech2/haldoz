@@ -1,3 +1,8 @@
+## Latest owner-job milestone — 28 October 2026
+Read docs/JOB-PUBLICATION-REVIEW-2026-10-28.md before historical entries. Current source adds draft/active editing, review/publish/fill actions, real public discovery/profile/detail jobs and explicit workplace/agency-fee disclosure. 89 tests, lint/types, both production builds and local Next/Workers HTTP checks passed. Real 390px browser-only draft validation/save/reload/edit/review passed. Browser access is now available; existing authenticated Add Job rendered, but no hosted job was submitted.
+Hosted state is still one page/ownership and zero jobs. Initial migration remains applied and unchanged; the NEW publication migration 20261027164402 is NOT APPLIED and requires exact-scope owner approval. HALDOZ_JOBS_READY remains false/unset. No hosted writes, deployment or main merge. No full verified database backup. No need to repeat Google/password setup or request manual testing while the owner is away.
+The owner's current authorization covers safe local implementation/checkpoints, normal pushes to codex/phone-and-release-prep and an optional DRAFT PR to main for review only. It explicitly forbids deployment, paid services, destructive work and additional hosted changes without approval. Latest request overrides earlier preview rollout instructions. Preserve all recovered files and backups; work only in the existing Haldoz audit copy.
+
 # Haldoz continuation rules
 
 ## Current owner priority — preserve and improve, 27 October 2026

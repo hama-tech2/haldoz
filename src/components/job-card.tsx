@@ -1,4 +1,5 @@
 import { Icon } from "./icon";
+import Link from "next/link";
 import { formatAge, formatTime, shiftLabels, type Job } from "../lib/jobs";
 export function JobCard({ job, saved, onToggle, now }: { job: Job; saved: boolean; onToggle: () => void; now: string }) {
   const overnight = job.start && job.end && job.end <= job.start;
@@ -7,7 +8,8 @@ export function JobCard({ job, saved, onToggle, now }: { job: Job; saved: boolea
       <div className="page-identity"><span className={"page-avatar tone-" + job.logoTone} aria-hidden="true">{job.initial}</span><span className="page-name">{job.pageName}</span></div>
       <span className="posting-age"><Icon name="clock"/><time dateTime={job.postedAt}>{formatAge(job.postedAt, now)}</time></span>
     </div>
-    <h3 id={job.id + "-title"}>{job.title}</h3>
+    <h3 id={job.id + "-title"}>{job.href ? <Link href={job.href}>{job.title}</Link> : job.title}</h3>
+    {job.placementFee && <p className="fee-disclosure"><bdi>{job.placementFee}</bdi></p>}
     <p className="salary">{job.salaryMode === "fixed" && job.salary !== null ? <><bdi dir="ltr">{job.salary.toLocaleString("en-US")} IQD</bdi><span className="salary-period"> / مانگ</span></> : job.salaryMode === "negotiable" ? "مووچە بە ڕێککەوتن" : "مووچە دیاری نەکراوە"}</p>
     <div className="card-bottom">
       <div className="job-facts">

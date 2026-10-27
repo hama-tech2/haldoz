@@ -1,17 +1,11 @@
 "use client";
-import { useSyncExternalStore } from "react";
-import { jobs } from "../data/jobs";
-import { createSavedStore } from "../lib/jobs";
-const store = createSavedStore(jobs.map(job => job.id), () => window.localStorage);
-let subscribers = 0;
-function subscribe(listener: () => void) {
-  const unsubscribe = store.subscribe(listener);
-  if (subscribers++ === 0) window.addEventListener("storage", store.refresh);
-  return () => {
-    unsubscribe();
-    if (--subscribers === 0) window.removeEventListener("storage", store.refresh);
-  };
+import {useSyncExternalStore} from "react";
+import {createSavedStore} from "../lib/jobs";
+import {validJobId} from "../lib/job-drafts";
+function sharedStore(demo:boolean){
+ const store=createSavedStore(demo ? id=>/^demo-[a-z-]+$/.test(id) : validJobId,()=>window.localStorage,demo?"haldoz.saved.v1":"haldoz.saved.jobs.v2");
+ let subscribers=0;
+ return {...store,subscribe(listener:()=>void){const unsubscribe=store.subscribe(listener);if(subscribers++===0)window.addEventListener("storage",store.refresh);return()=>{unsubscribe();if(--subscribers===0)window.removeEventListener("storage",store.refresh);};}};
 }
-export function useSavedJobs() {
-  return { ...useSyncExternalStore(subscribe, store.getSnapshot, store.getServerSnapshot), toggle: store.toggle };
-}
+const real=sharedStore(false),fixture=sharedStore(true);
+export function useSavedJobs(demo=false){const store=demo?fixture:real;return {...useSyncExternalStore(store.subscribe,store.getSnapshot,store.getServerSnapshot),toggle:store.toggle};}

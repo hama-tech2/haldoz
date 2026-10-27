@@ -82,6 +82,8 @@ function pageController(file, {signedIn=true,state='new'}={}) {
   if(name.endsWith('/account-errors'))return {authErrorMessage:()=> 'session error',pageDatabasePending:'database pending',pageDatabaseUnavailable:'database unavailable'};
   if(name.endsWith('/page-setup-form'))return {PageSetupForm:'setup-form'};
   if(name.endsWith('/owner-page-view'))return {OwnerPageView:'owner-view'};
+  if(name.endsWith('/public-jobs'))return {loadPublicJobs:async()=>({jobs:[],unavailable:false})};
+  if(name.endsWith('/public-job-list'))return {PublicJobList:'public-job-list'};
   return {};
  }});
  return exports.default;

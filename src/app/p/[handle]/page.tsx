@@ -4,6 +4,8 @@ import { EntryHeader } from "../../../components/entry-header";
 import { PublicProfile } from "../../../components/public-profile";
 import { supabaseConfig } from "../../../lib/supabase/config";
 import { validHandle, type PublicPage } from "../../../lib/page-validation";
+import {loadPublicJobs} from "../../../lib/public-jobs";
+import {PublicJobList} from "../../../components/public-job-list";
 import "../../entry.css";
 import "../../owner.css";
 export const dynamic = "force-dynamic";
@@ -17,5 +19,6 @@ export default async function Profile({ params }: { params: Promise<{ handle: st
   if (error) return <div><EntryHeader/><main id="main-content" className="owner-shell service-state"><h1>پەڕەکە ئێستا بەردەست نییە</h1><p>خزمەتگوزاریی پەڕەکان کاتییانە بەردەست نییە. تکایە دواتر دووبارە هەوڵ بدەوە.</p></main></div>;
   if (!data) notFound();
   const page: PublicPage = { ...data, bio: data.bio ?? "", public_phone: data.public_phone ?? "", public_whatsapp: data.public_whatsapp ?? "" };
-  return <div className="owner-shell narrow-shell"><EntryHeader/><main id="main-content"><PublicProfile page={page}/></main></div>;
+  const result=await loadPublicJobs({pageId:page.id});
+  return <div className="owner-shell narrow-shell"><EntryHeader/><main id="main-content"><PublicProfile page={page}><PublicJobList jobs={result.jobs} unavailable={result.unavailable}/></PublicProfile></main></div>;
 }

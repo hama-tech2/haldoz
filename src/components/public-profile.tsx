@@ -1,7 +1,8 @@
 import Link from "next/link";
+import type {ReactNode} from "react";
 import type { PublicPage } from "../lib/page-validation";
 import { Icon } from "./icon";
-export function PublicProfile({ page, preview = false }: { page: PublicPage; preview?: boolean }) {
+export function PublicProfile({ page, preview = false, children }: { page: PublicPage; preview?: boolean; children?:ReactNode }) {
   return <article className={"public-profile profile-" + page.brand_tone}>
     {preview && <p className="preview-label"><Icon name="info"/>پێشبینین — ئەم پەڕەیە بڵاونەکراوەتەوە</p>}
     <div className="profile-cover" aria-hidden="true"/>
@@ -15,7 +16,7 @@ export function PublicProfile({ page, preview = false }: { page: PublicPage; pre
         {page.public_whatsapp && (preview ? <span className="contact-preview">واتساپ · پێشبینین</span> : <a className="secondary-button" href={"https://wa.me/" + page.public_whatsapp.slice(1)} target="_blank" rel="noopener noreferrer">واتساپ</a>)}
       </div>
     </div>
-    <section className="profile-opportunities"><h2>هەلەکانی کار</h2><div className="profile-empty"><Icon name="bag"/><div><h3>هێشتا هەلی کار نییە</h3><p>هەلە نوێیەکان لێرە دەردەکەون.</p></div></div></section>
+    <section className="profile-opportunities"><h2>هەلەکانی کار</h2>{children ?? <div className="profile-empty"><Icon name="bag"/><div><h3>هێشتا هەلی کار نییە</h3><p>هەلە نوێیەکان لێرە دەردەکەون.</p></div></div>}</section>
     <footer className="profile-footer"><p>زانیارییەکانی ئەم پەڕەیە لەلایەن خاوەنەکەیەوە دەنووسرێن.</p><Link href="/">دروستکراوە بە هەڵدۆز · بەخۆڕایی</Link></footer>
   </article>;
 }
