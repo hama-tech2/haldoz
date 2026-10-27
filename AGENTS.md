@@ -1,5 +1,8 @@
 # Haldoz continuation rules
 
+## Latest hosted checkpoint — 27 October 2026
+Read docs/HOSTED-MIGRATION-2026-10-27.md first. Exact owner-approved source migration 20261022200318 / SHA-256 8141BA8ED3E60EFF0C717046A51722CAD042EB2067C476886FF57D2855FD5FC7 has been applied to wickyjtjhgfzntifuzac after explicit acceptance of the unverified full-backup gap. Supabase MCP assigned history version 20261027074958; do not blindly push/reapply SQL or rewrite history to hide this mapping. Tables/RLS/nine policies and anonymous API access verified; signed-in save/non-owner JWT acceptance remains UNVERIFIED because local browser access timed out. Owner instructed STOP on unexpected problems: server stopped, no profile/job records created, no application implementation after this blocker. Saved readiness configuration unchanged. Next: resolve preview access and verify real intended-owner Page Setup save/reload/edit. No publishing, deployment or main merge authorized. Shared Auth/settings/helpers/default grants remain unchanged; preserve all backups.
+
 ## Current owner request — 26 October 2026
 Communicate only in English; preserve the approved Sorani RTL product UI. Safe local phone/persistence/hosting preparation and meaningful local commits are now authorized. Do not inspect sibling projects or reuse their assets.
 Use the existing work/haldoz-audit/haldoz working copy; the recovered Desktop original, its 33-entry index and all recovery backups stay untouched. The owner now authorizes staging the complete application in the working copy for its first public checkpoint; do not reset history or push without showing the upload contents and obtaining approval.

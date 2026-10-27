@@ -1,3 +1,13 @@
+# Latest authoritative checkpoint — 27 October 2026
+
+Owner-approved source migration 20261022200318 (SHA-256 8141BA8ED3E60EFF0C717046A51722CAD042EB2067C476886FF57D2855FD5FC7) is now APPLIED to wickyjtjhgfzntifuzac.
+Supabase recorded execution version 20261027074958; see HOSTED-MIGRATION-2026-10-27.md for the exact source/history mapping and evidence. Never blindly push/reapply the local migration.
+All three Haldoz tables have RLS and nine policies; real anonymous profile/job reads passed, ownership reads were denied. Tables remain empty; existing two Auth users and shared helper/default ACL/event triggers are unchanged.
+No verified full restorable backup exists; the owner expressly accepted that gap for this exact additive transaction.
+Real Page Setup saving and signed-in owner/non-owner JWT tests are UNVERIFIED: the production server reported Ready, but browser and read-only local reachability checks timed out. Per the owner's stop instruction, the test server was stopped; no application implementation or real record save followed.
+No job publishing, push, merge or deployment in this milestone. Saved readiness configuration remains unchanged. Resolve local preview access, then test the intended owner's real save/reload/edit before the next feature slice.
+The sections below are historical evidence and may describe older migration/Git/provider states.
+
 # Haldoz current state — owner-first local slice
 
 ## Latest — 26 October 2026: single contact and release preparation
