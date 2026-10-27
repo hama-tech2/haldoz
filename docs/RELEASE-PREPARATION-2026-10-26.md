@@ -10,7 +10,7 @@ The original recovery index and all its backups remain unchanged. Staging/commit
 
 ## Single-number contact
 Page Setup and Edit Profile have one freely typed public phone field and a WhatsApp checkbox.
-Default country IQ; 07515298365, +9647515298365 and 9647515298365 normalize to +9647515298365. Formatting spaces, parentheses, periods, hyphens and Arabic/Kurdish digits are supported.
+Default country IQ; 07912345678, +9647912345678 and 9647912345678 normalize to +9647912345678. Formatting spaces, parentheses, periods, hyphens and Arabic/Kurdish digits are supported.
 Pinned libphonenumber-js/max validates numbering metadata; arbitrary text, malformed input and extensions are rejected. This does not verify number ownership or the existence of a WhatsApp account.
 The raw field is not rewritten on every keystroke. Both preview and server use the canonical number. When WhatsApp is disabled its mapped value is null; no second number is accepted from the form, including forged legacy fields.
 The existing RPC/column names are retained for compatibility. SQL requires public_phone and constrains public_whatsapp to either the same number or null.

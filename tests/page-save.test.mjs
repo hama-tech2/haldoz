@@ -7,7 +7,7 @@ import { validatePage } from "../src/lib/page-validation.ts";
 import { pageDatabasePending, pageDatabaseUnavailable } from "../src/lib/account-errors.ts";
 
 const compiled = ts.transpileModule(fs.readFileSync(new URL("../src/app/page-setup/actions.ts", import.meta.url), "utf8"), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
-const valid = {handle:"aso-office",display_name:"پەڕەی ئاسۆ",city:"هەولێر",public_phone:"07515298365",whatsapp_enabled:"on",confirm_public:"on",brand_tone:"blue",owner_id:"forged-owner",public_whatsapp:"+9647701111111"};
+const valid = {handle:"aso-office",display_name:"پەڕەی ئاسۆ",city:"هەولێر",public_phone:"07912345678",whatsapp_enabled:"on",confirm_public:"on",brand_tone:"blue",owner_id:"forged-owner",public_whatsapp:"+9647701111111"};
 
 function action({signedIn=true,status="new",rpcResult={data:"synthetic-page-id",error:null}}={}) {
  const calls=[];
@@ -28,7 +28,7 @@ test("page saving sends one normalized contact to the atomic RPC and redirects o
  assert.equal(handler.calls.length,1);
  const {name,payload}=handler.calls[0];
  assert.equal(name,"haldoz_create_page");
- assert.equal(payload.page_phone,"+9647515298365");
+ assert.equal(payload.page_phone,"+9647912345678");
  assert.equal(payload.page_whatsapp,payload.page_phone);
  assert.equal("owner_id" in payload,false);
  const disabled=action();

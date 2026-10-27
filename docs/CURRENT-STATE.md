@@ -1,5 +1,7 @@
 # Latest authoritative checkpoint — 27 October 2026
 
+Continuation update: localhost access is resolved by running the production preview outside the restricted command environment. Four HTTP/security scripts passed, and signed-out create/edit denial was retested with PAGES_READY enabled only in the test process. Server logs recorded verified Google exchanges to setup and My Page; a fresh database read confirms one real saved page/ownership record and zero jobs. Full edit/non-owner JWT acceptance and deployed preview remain unverified. The preservation checkpoint removes the numeric phone placeholder/examples, adds docs/AI-HANDOFF.md and passes 64 tests, source/privacy scans, lint, types and Next production build. This supersedes the older timeout/empty-table status below. The local test server was stopped for the build; restart explicitly for real testing.
+
 Owner-approved source migration 20261022200318 (SHA-256 8141BA8ED3E60EFF0C717046A51722CAD042EB2067C476886FF57D2855FD5FC7) is now APPLIED to wickyjtjhgfzntifuzac.
 Supabase recorded execution version 20261027074958; see HOSTED-MIGRATION-2026-10-27.md for the exact source/history mapping and evidence. Never blindly push/reapply the local migration.
 All three Haldoz tables have RLS and nine policies; real anonymous profile/job reads passed, ownership reads were denied. Tables remain empty; existing two Auth users and shared helper/default ACL/event triggers are unchanged.

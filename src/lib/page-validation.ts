@@ -29,7 +29,7 @@ export function validatePage(raw: Record<string, unknown>): { page: PublicPage; 
   if (page.display_name.length < 2 || page.display_name.length > 80) errors.display_name = "ناوی پەڕە دەبێت ٢–٨٠ پیت بێت.";
   if (page.bio.length > 500) errors.bio = "کورتەکە نابێت لە ٥٠٠ پیت زیاتر بێت.";
   if (!(cities as readonly string[]).includes(page.city)) errors.city = "شارێک هەڵبژێرە.";
-  if (!phone) errors.public_phone = "ژمارەیەکی دروست بنووسە، وەک 07515298365.";
+  if (!phone) errors.public_phone = "ژمارەیەکی دروستی مۆبایل بنووسە.";
   if (!["blue","teal","violet"].includes(page.brand_tone)) errors.brand_tone = "ڕەنگێکی بەردەست هەڵبژێرە.";
   if (raw.confirm_public !== true && raw.confirm_public !== "on") errors.confirm_public = "تکایە بڵاوکردنەوەی ئەم زانیارییانە پشتڕاست بکەرەوە.";
   return { page, errors };

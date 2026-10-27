@@ -1,5 +1,8 @@
 # Haldoz continuation rules
 
+## Current owner priority — preserve and improve, 27 October 2026
+Read docs/AI-HANDOFF.md for the latest continuation state. The owner explicitly authorizes reviewed, tested commits and normal pushes to codex/phone-and-release-prep, a focused form/profile UI improvement, real owner/draft acceptance tests and a tested Cloudflare preview with branch preview automation. Preserve approved landing/login and recovered source/backups. Production promotion/main merge still requires approval; extra hosted SQL needs separate review and approval. Do not reapply the initial migration. A current saved page exists; do not replace it with a fixture. Follow the latest user request instead of older STOP gates below.
+
 ## Latest hosted checkpoint — 27 October 2026
 Read docs/HOSTED-MIGRATION-2026-10-27.md first. Exact owner-approved source migration 20261022200318 / SHA-256 8141BA8ED3E60EFF0C717046A51722CAD042EB2067C476886FF57D2855FD5FC7 has been applied to wickyjtjhgfzntifuzac after explicit acceptance of the unverified full-backup gap. Supabase MCP assigned history version 20261027074958; do not blindly push/reapply SQL or rewrite history to hide this mapping. Tables/RLS/nine policies and anonymous API access verified; signed-in save/non-owner JWT acceptance remains UNVERIFIED because local browser access timed out. Owner instructed STOP on unexpected problems: server stopped, no profile/job records created, no application implementation after this blocker. Saved readiness configuration unchanged. Next: resolve preview access and verify real intended-owner Page Setup save/reload/edit. No publishing, deployment or main merge authorized. Shared Auth/settings/helpers/default grants remain unchanged; preserve all backups.
 
