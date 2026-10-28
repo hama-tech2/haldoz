@@ -22,7 +22,8 @@
     "start:vinext": "wrangler dev --config dist/server/wrangler.json",
     "deploy:vinext": "npm run deploy:production",
     "check:cloudflare": "node scripts/check-cloudflare.mjs",
-    "deploy:production": "node scripts/deploy-production.mjs"
+    "deploy:production": "node scripts/deploy-production.mjs",
+    "deploy:preview": "node scripts/deploy-preview.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "0.12.7",
