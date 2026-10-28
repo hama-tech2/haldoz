@@ -1,3 +1,26 @@
+## Latest owner-job milestone — 28 October 2026
+Read docs/JOB-PUBLICATION-REVIEW-2026-10-28.md before historical entries. Current source adds draft/active editing, review/publish/fill actions, real public discovery/profile/detail jobs and explicit workplace/agency-fee disclosure. 89 tests, lint/types, both production builds and local Next/Workers HTTP checks passed. Real 390px browser-only draft validation/save/reload/edit/review passed. Browser access is now available; existing authenticated Add Job rendered, but no hosted job was submitted.
+Hosted state is still one page/ownership and zero jobs. Initial migration remains applied and unchanged; the NEW publication migration 20261027164402 is NOT APPLIED and requires exact-scope owner approval. HALDOZ_JOBS_READY remains false/unset. No hosted writes, deployment or main merge. No full verified database backup. No need to repeat Google/password setup or request manual testing while the owner is away.
+The owner's current authorization covers safe local implementation/checkpoints, normal pushes to codex/phone-and-release-prep and an optional DRAFT PR to main for review only. It explicitly forbids deployment, paid services, destructive work and additional hosted changes without approval. Latest request overrides earlier preview rollout instructions. Preserve all recovered files and backups; work only in the existing Haldoz audit copy.
+
+# Latest form/profile continuation — 27 October 2026
+
+Preservation checkpoint 427ed81 is confirmed on codex/phone-and-release-prep. The subsequent form/profile checkpoint improves empty new-page phone initialization, submit-only validation, natural names/URL conflict feedback, Add Job priority and shared profile/form readability. Read FORM-PROFILE-SLICE-2026-10-27.md and AI-HANDOFF.md before historical entries below.
+
+Fresh 68 tests, lint/types, Next build, vinext build and local Next/Workers HTTP authorization checks passed. The real saved public profile was read anonymously twice and matched the hosted public contact fingerprint. One saved page, zero jobs. No hosted modifications. Signed-in edit/draft acceptance, current screenshots and hosted preview are pending; the browser connector was unavailable and the native Chrome fallback window disappeared. Owner's next action: open http://127.0.0.1:3100/owner in normal Chrome and inspect Edit Profile. Keep the local server running for this test.
+
+## Historical preservation checkpoint — 27 October 2026
+
+Continuation update: localhost access is resolved by running the production preview outside the restricted command environment. Four HTTP/security scripts passed, and signed-out create/edit denial was retested with PAGES_READY enabled only in the test process. Server logs recorded verified Google exchanges to setup and My Page; a fresh database read confirms one real saved page/ownership record and zero jobs. Full edit/non-owner JWT acceptance and deployed preview remain unverified. The preservation checkpoint removes the numeric phone placeholder/examples, adds docs/AI-HANDOFF.md and passes 64 tests, source/privacy scans, lint, types and Next production build. This supersedes the older timeout/empty-table status below. The local test server was stopped for the build; restart explicitly for real testing.
+
+Owner-approved source migration 20261022200318 (SHA-256 8141BA8ED3E60EFF0C717046A51722CAD042EB2067C476886FF57D2855FD5FC7) is now APPLIED to wickyjtjhgfzntifuzac.
+Supabase recorded execution version 20261027074958; see HOSTED-MIGRATION-2026-10-27.md for the exact source/history mapping and evidence. Never blindly push/reapply the local migration.
+All three Haldoz tables have RLS and nine policies; real anonymous profile/job reads passed, ownership reads were denied. Tables remain empty; existing two Auth users and shared helper/default ACL/event triggers are unchanged.
+No verified full restorable backup exists; the owner expressly accepted that gap for this exact additive transaction.
+Real Page Setup saving and signed-in owner/non-owner JWT tests are UNVERIFIED: the production server reported Ready, but browser and read-only local reachability checks timed out. Per the owner's stop instruction, the test server was stopped; no application implementation or real record save followed.
+No job publishing, push, merge or deployment in this milestone. Saved readiness configuration remains unchanged. Resolve local preview access, then test the intended owner's real save/reload/edit before the next feature slice.
+The sections below are historical evidence and may describe older migration/Git/provider states.
+
 # Haldoz current state — owner-first local slice
 
 ## Latest — 26 October 2026: single contact and release preparation

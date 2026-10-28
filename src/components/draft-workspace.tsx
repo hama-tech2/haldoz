@@ -31,7 +31,7 @@ export function DraftWorkspace() {
  <div className="draft-fixture-toolbar"><button className="secondary-button" onClick={()=>setView("list")}>داشبۆردی تاقیکردنەوە</button><button className="primary-button" onClick={()=>edit("")}>زیادکردنی هەلی کار</button></div>
  {error && <p role="alert" className="form-alert">{error}</p>}
  {view==="list" && <><h1>ڕەشنووسەکانی تاقیکردنەوە</h1><section className="draft-list" aria-label="ڕەشنووسەکان">{!jobs.length && !error && <p className="form-alert">هێشتا ڕەشنووسێکت نییە. یەکەم هەلی کارت زیاد بکە.</p>}{jobs.map(job=><article className="draft-list-card" key={job.id}><span className="draft-badge">ڕەشنووس</span><h2>{job.draft.title}</h2><p>{job.draft.city} · <bdi>{salaryText(job.draft)}</bdi></p><div className="draft-card-actions"><button className="secondary-button" onClick={()=>edit(job.id)}>دەستکاریکردن</button><button className="secondary-button" onClick={()=>{setSelected(job.id);setView("review");}}>پێداچوونەوە</button></div></article>)}</section></>}
- {view==="edit" && <><h1>{selected ? "دەستکاریکردنی ڕەشنووس" : "زیادکردنی هەلی کار"}</h1><DraftForm key={editorKey} id={row?.id} initial={row?.draft ?? blankDraft} save={save} fixture onReview={id=>{setSelected(id);setView("review");}}/></>}
+ {view==="edit" && <><h1>{selected ? "دەستکاریکردنی ڕەشنووس" : "زیادکردنی هەلی کار"}</h1><DraftForm key={editorKey} id={row?.id} initial={row?.draft ?? blankDraft} save={save} fixture extended onReview={id=>{setSelected(id);setView("review");}}/></>}
  {view==="review" && row && <><h1>پێداچوونەوەی ڕەشنووس</h1><DraftReview draft={row.draft}/><button className="secondary-button" onClick={()=>edit(row.id)}>گەڕانەوە بۆ دەستکاریکردن</button></>}
  </>;
 }

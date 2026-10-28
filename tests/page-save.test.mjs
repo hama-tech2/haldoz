@@ -7,15 +7,15 @@ import { validatePage } from "../src/lib/page-validation.ts";
 import { pageDatabasePending, pageDatabaseUnavailable } from "../src/lib/account-errors.ts";
 
 const compiled = ts.transpileModule(fs.readFileSync(new URL("../src/app/page-setup/actions.ts", import.meta.url), "utf8"), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
-const valid = {handle:"aso-office",display_name:"پەڕەی ئاسۆ",city:"هەولێر",public_phone:"07515298365",whatsapp_enabled:"on",confirm_public:"on",brand_tone:"blue",owner_id:"forged-owner",public_whatsapp:"+9647701111111"};
+const valid = {handle:"aso-office",display_name:"پەڕەی ئاسۆ",city:"هەولێر",public_phone:"07912345678",whatsapp_enabled:"on",confirm_public:"on",brand_tone:"blue",owner_id:"forged-owner",public_whatsapp:"+9647701111111"};
 
-function action({signedIn=true,status="new",rpcResult={data:"synthetic-page-id",error:null}}={}) {
+function action({signedIn=true,status="new",afterConflict=status,rpcResult={data:"synthetic-page-id",error:null}}={}) {
  const calls=[];
  const exports={};
  vm.runInNewContext(compiled,{exports,require(name){
   if(name==="next/navigation") return {redirect(destination){throw Object.assign(new Error("redirect"),{destination});}};
   if(name.endsWith("/supabase/server")) return {verifiedOwner:async()=>signedIn?{id:"verified-owner",client:{rpc:async(name,payload)=>{calls.push({name,payload});return rpcResult;}}}:null};
-  if(name.endsWith("/owner-routing"))return {ownerPageState:async()=>({status,page:status==="saved"?{id:"saved-page"}:null})};
+  if(name.endsWith("/owner-routing"))return {ownerPageState:async()=>({status:calls.length ? afterConflict : status,page:status==="saved"?{id:"saved-page"}:null})};
   if(name.endsWith("/page-validation"))return {validatePage};
   if(name.endsWith("/account-errors"))return {pageDatabasePending,pageDatabaseUnavailable};
   throw new Error("Unexpected dependency "+name);
@@ -28,7 +28,7 @@ test("page saving sends one normalized contact to the atomic RPC and redirects o
  assert.equal(handler.calls.length,1);
  const {name,payload}=handler.calls[0];
  assert.equal(name,"haldoz_create_page");
- assert.equal(payload.page_phone,"+9647515298365");
+ assert.equal(payload.page_phone,"+9647912345678");
  assert.equal(payload.page_whatsapp,payload.page_phone);
  assert.equal("owner_id" in payload,false);
  const disabled=action();
@@ -57,4 +57,16 @@ test("duplicate handles and failed saving never redirect or expose database diag
   assert.ok(result.message);
   assert.equal(JSON.stringify(result).includes("private-diagnostic"),false);
  }
+});
+test("handle conflict identifies the URL field without rejecting a natural display name",async()=>{
+ const result=await action({rpcResult:{data:null,error:{code:"23505"}}}).run(valid);
+ assert.ok(result.errors.handle);
+ assert.equal(result.errors.display_name,undefined);
+});
+test("concurrent creation returns the verified owner's existing page; unavailable rechecks stay errors",async()=>{
+ const rpcResult={data:null,error:{code:"23505"}};
+ await assert.rejects(()=>action({afterConflict:"saved",rpcResult}).run(valid),error=>error.destination==="/owner");
+ const result=await action({afterConflict:"database-unavailable",rpcResult}).run(valid);
+ assert.equal(result.message,pageDatabaseUnavailable);
+ assert.equal(result.errors,undefined);
 });

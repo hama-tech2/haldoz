@@ -1,5 +1,5 @@
 # Haldoz database change for owner approval
-Status: PREPARED LOCALLY, NOT APPLIED.
+Status as of 27 October 2026: APPLIED with explicit owner approval and accepted unverified-backup risk. See HOSTED-MIGRATION-2026-10-27.md. The original proposal/review below is retained as historical context.
 
 ## Exact file
 supabase/migrations/20261022200318_haldoz_owner_pages_and_jobs.sql

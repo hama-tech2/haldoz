@@ -1,7 +1,24 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { validatePage, validHandle, normalizePhone } from "../src/lib/page-validation.ts";
+import { validatePage, validHandle, normalizePhone, initialPageForm, blankPage } from "../src/lib/page-validation.ts";
 const valid = { handle: "aso-office", display_name: "نووسینگەی ئاسۆ", bio: "", city: "هەولێر", public_phone: "+9647501234567", public_whatsapp: "", brand_tone: "blue", confirm_public: true };
+test("new-page form never inherits contact data; editing preserves only supplied saved contact", () => {
+  const saved = { ...blankPage, public_phone: "+9647912345678", public_whatsapp: "+9647912345678" };
+  assert.equal(initialPageForm(saved, "create").public_phone, "");
+  assert.equal(initialPageForm(saved, "create").public_whatsapp, "");
+  assert.equal(initialPageForm(saved, "edit").public_phone, saved.public_phone);
+  assert.equal(saved.public_phone, "+9647912345678");
+});
+test("natural multilingual names remain separate from ASCII handles; control overrides are rejected", () => {
+  for (const display_name of ["نووسینگەی ڕووناک", "مكتب الأمل", "Dara & Sons", "هەڵدۆز - Haldoz", "نە\u200cورۆز"]) {
+    const result = validatePage({ ...valid, display_name });
+    assert.deepEqual(result.errors, {});
+    assert.equal(result.page.display_name, display_name);
+    assert.equal(result.page.handle, valid.handle);
+  }
+  for (const display_name of ["A\u0000B", "name\u202Eevil", "office\nname", "a".repeat(81)]) assert.ok(validatePage({ ...valid, display_name }).errors.display_name);
+  assert.equal(validatePage({ ...valid, display_name: "😀".repeat(80) }).errors.display_name, undefined);
+});
 test("page validation rejects reserved/path/Unicode/confusable handles", () => {
   for (const handle of ["admin","auth","a","a-","/other","a?b","ئاسۆ","ＡＢＣ","with space"]) assert.equal(validHandle(handle), false, handle);
   assert.equal(validHandle("aso-office"), true);
@@ -24,10 +41,10 @@ test("server validation limits branding, city, biography and contact schemes", (
 });
 
 test("Iraqi national, international and naturally pasted numbers share one canonical contact", () => {
-  for (const input of ["07515298365", "+9647515298365", "9647515298365", "00964 751 529 8365", "0751 529-8365", "+964 (751) 529.8365", "٠٧٥١٥٢٩٨٣٦٥", "۰۷۵۱۵۲۹۸۳۶۵", "\u200f0751–529–8365\u200e"]) {
+  for (const input of ["07912345678", "+9647912345678", "9647912345678", "00964 791 234 5678", "0791 234-5678", "+964 (791) 234.5678", "٠٧٩١٢٣٤٥٦٧٨", "۰۷۹۱۲۳۴۵۶۷۸", "\u200f0791–234–5678\u200e"]) {
     const result = validatePage({ ...valid, public_phone: input, whatsapp_enabled: "on", public_whatsapp: "+9647701111111" });
     assert.deepEqual(result.errors, {}, input);
-    assert.equal(result.page.public_phone, "+9647515298365", input);
+    assert.equal(result.page.public_phone, "+9647912345678", input);
     assert.equal(result.page.public_whatsapp, result.page.public_phone);
   }
 });
@@ -43,7 +60,7 @@ test("WhatsApp is optional and a forged second number cannot override the single
 });
 
 test("unusable numbers and extensions cannot produce public call or WhatsApp links", () => {
-  for (const input of ["", "0751", "075152983650000", "00000000000", "+9997515298365", "call 07515298365", "07515298365 ext 12", "https://example.invalid/07515298365", "0751+5298365"]) {
+  for (const input of ["", "0751", "079123456780000", "00000000000", "+9997912345678", "call 07912345678", "07912345678 ext 12", "https://example.invalid/07912345678", "0791+2345678"]) {
     const result = validatePage({ ...valid, public_phone: input, whatsapp_enabled: true });
     assert.ok(result.errors.public_phone, input);
     assert.equal(result.page.public_phone, "");

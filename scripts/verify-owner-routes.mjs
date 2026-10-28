@@ -41,6 +41,11 @@ if(googleEnabled){
  cases.push("Ready OAuth starts at the confirmed broker with PKCE; no account selection or token exchange performed");
 }else{assert.equal(target.origin,base);assert.equal(target.pathname,"/create");assert.equal(target.searchParams.get("error"),"unavailable");cases.push("Unavailable Google flow fails closed");}
 const reserved=await fetch(base+"/p/admin");assert.equal(reserved.status,404);
-const profile=await fetch(base+"/p/aso-test");assert.equal(profile.status,200);assert.match(await profile.text(),/پەڕەکان هێشتا چالاک نین/);cases.push("Reserved handles 404; missing backend shows honest service state");
+const profile=await fetch(base+"/p/aso-test");
+if(process.env.HALDOZ_TEST_PAGES_READY === "true"){
+ assert.equal(profile.status,404);cases.push("Reserved and absent hosted handles return 404 with pages enabled");
+}else{
+ assert.equal(profile.status,200);assert.match(await profile.text(),/پەڕەکان هێشتا چالاک نین/);cases.push("Reserved handles 404; missing backend shows honest service state");
+}
 fs.mkdirSync(".local/qa",{recursive:true});fs.writeFileSync(".local/qa/owner-routes.json",JSON.stringify({cases,note:"Current local HTTP boundaries; no completed real OAuth/session or hosted write tested"},null,2));
 console.log(JSON.stringify(cases));
