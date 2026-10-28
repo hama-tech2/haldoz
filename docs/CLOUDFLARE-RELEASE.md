@@ -1,3 +1,6 @@
+## First online test preparation — 28 October 2026
+Read docs/FIRST-TEST-DEPLOYMENT-2026-10-28.md. GitHub Pages is verified legacy/main/root Jekyll documentation, not the application. Exact proposed full-stack target: haldoz-preview.mahmadmajed149.workers.dev, Cloudflare account 11de8ff2142cb705ddccb688df41621a. No Haldoz resource currently exists. Local isolated packaging/routes passed; deploy:preview remains blocked by explicit exact-target approval, private Wrangler login and verification of the one new Supabase callback. Dashboard allowlist currently contains only http://127.0.0.1:3100/auth/callback; preserve it and the shared Site URL. No hosted changes, deployment, paid bindings or main merge occurred. Job publication remains disabled and its migration remains unapplied. Latest user request allows preparation now, requires approval before these external changes. Do not repeat historical migration/setup gates as blockers for serving the existing profile/draft slice online.
+
 # Haldoz Workers release preparation
 Status: local candidate tested; no deployment or Git connection configured.
 
